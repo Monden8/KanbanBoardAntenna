@@ -1,0 +1,56 @@
+<div class="main">
+  <div class="login_form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="container">
+        <div class="name_container">
+          <mat-form-field>
+            <input matInput placeholder="Username" formControlName="name" />
+            <mat-error
+              *ngIf="
+                form.get('name')?.invalid &&
+                (form.get('name')?.dirty || form.get('name')?.touched) &&
+                form.get('name')?.errors?.required
+              "
+            >
+              Username is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="password_container">
+          <mat-form-field>
+            <input
+              matInput
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+            />
+            <mat-error *ngIf="!form.get('password')?.errors?.required">
+              Password length must be greater than or equal to 8
+            </mat-error>
+            <mat-error
+              *ngIf="
+                form.get('password')?.invalid &&
+                (form.get('password')?.dirty ||
+                  form.get('password')?.touched) &&
+                form.get('password')?.errors?.required
+              "
+            >
+              Password is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="button_container">
+          <button
+            [disabled]="!form.valid"
+            mat-raised-button
+            color="primary"
+            mat-button
+          >
+            Sign In
+          </button>
+          <mat-error *ngIf="hasError">{{ hasError }}</mat-error>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

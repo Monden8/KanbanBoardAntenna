@@ -1,0 +1,23 @@
+<mat-card class="container" *ngIf="!error && ticket?.createdBy">
+  <div class="title">
+    <mat-card-title class="title_text">{{ ticket?.name }}</mat-card-title>
+    <mat-icon [matTooltip]="tooltipText">info</mat-icon>
+  </div>
+  <mat-card-subtitle class="description" *ngIf="ticket?.description">{{
+    ticket?.description
+  }}</mat-card-subtitle>
+  <mat-divider inset></mat-divider>
+  <mat-card-content>
+    <p class="dueDate">Due date: {{ ticket?.deadLine | date }}</p>
+    <p class="participants">
+      Participants:
+      <span *ngFor="let person of ticket?.addedPerson; let i = index"
+        >{{ person }}
+        <span *ngIf="ticket?.addedPerson?.length !== i + 1">,</span>
+      </span>
+    </p>
+  </mat-card-content>
+</mat-card>
+<div class="container" *ngIf="error">
+  <p>There was an error loading this ticket!</p>
+</div>

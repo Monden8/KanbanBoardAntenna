@@ -1,27 +1,36 @@
 # KanbanBoard
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+For the purpose of an interview.
+The project isn't fully done.
+
+## Setup
+To run this project, install Angular and all the needed dependencies($npm i) locally using npm.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Login
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To login into the board there are 3 mockUsers.
+'István' , 'Sándor' , 'József'
+with the shared password of
+'Jonapot89**'.
 
-## Build
+## Functionalities
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+At the moment for each user there is a separate board.
+Although login out and in to a new user and modifying the board deletes the previous users board.
+The functionalities include 'Add column' , 'Add ticket', 'Drag and Drop between columns' and saving the data in localstorage.
+The missing functionalities are 'delete column', 'delete ticket', 'saving users boards individually' , 'modify board names after creation' .
 
-## Running unit tests
+## Missing
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Not functional but missing from the project. -> 
 
-## Running end-to-end tests
+Ngrx statemanagment.
+3 Additional static sites.
+List number.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

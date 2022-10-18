@@ -1,0 +1,136 @@
+<div class="main">
+  <h1>Your personal board</h1>
+  <button
+    class="add_column"
+    mat-raised-button
+    color="primary"
+    mat-button
+    (click)="addList()"
+  >
+    Add new column
+  </button>
+
+  <div *ngIf="listCreationActive" class="add_column">
+    <form [formGroup]="columnForm" (ngSubmit)="createList()" novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="title" />
+        <mat-error
+          *ngIf="
+            columnForm.get('title')?.invalid &&
+            (columnForm.get('title')?.dirty ||
+              columnForm.get('title')?.touched) &&
+            columnForm.get('title')?.errors?.required
+          "
+        >
+          Title is required
+        </mat-error>
+      </mat-form-field>
+      <button
+        [disabled]="!columnForm.valid"
+        mat-raised-button
+        color="primary"
+        mat-button
+      >
+        Create column
+      </button>
+    </form>
+  </div>
+
+  <button
+    class="add"
+    mat-raised-button
+    color="primary"
+    mat-button
+    (click)="addTicket()"
+  >
+    Add new ticket
+  </button>
+  <div class="create_ticket" *ngIf="creationActive">
+    <form [formGroup]="form" (ngSubmit)="createCard()" novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Title" formControlName="name" />
+        <mat-error
+          *ngIf="
+            form.get('name')?.invalid &&
+            (form.get('name')?.dirty || form.get('name')?.touched) &&
+            form.get('name')?.errors?.required
+          "
+        >
+          Username is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Description(optional)"
+          formControlName="description"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Add Person"
+          formControlName="addedPerson"
+        />
+        <mat-error
+          *ngIf="
+            form.get('addedPerson')?.invalid &&
+            (form.get('addedPerson')?.dirty ||
+              form.get('addedPerson')?.touched) &&
+            form.get('addedPerson')?.errors?.required
+          "
+        >
+          Username is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" (click)="picker" formControlName="deadline" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error
+          *ngIf="
+            form.get('deadline')?.invalid &&
+            (form.get('deadline')?.dirty || form.get('deadline')?.touched) &&
+            form.get('deadline')?.errors?.required
+          "
+        >
+          Date is required
+        </mat-error>
+      </mat-form-field>
+      <button
+        [disabled]="!form.valid"
+        mat-raised-button
+        color="primary"
+        mat-button
+      >
+        Create Ticket
+      </button>
+    </form>
+  </div>
+
+  <div class="column_container">
+    <div
+      class="column"
+      *ngFor="let column of columns"
+      cdkDropList
+      id="{{ column.title }}"
+      [cdkDropListData]="column.cardID"
+      [cdkDropListConnectedTo]="allColumns"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="top">
+        <h2 class="title">{{ column.title }}</h2>
+      </div>
+      <div class="ticket_container">
+        <div class="ticket" *ngFor="let ticketID of column.cardID">
+          <kanban-ticket
+            [ticketID]="ticketID"
+            cdkDrag
+            *ngIf="column.user.includes(loggedUser)"
+          ></kanban-ticket>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
